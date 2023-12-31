@@ -2,8 +2,21 @@ import './App.css'
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
+import BasicCard from './assets/Components/Common/BasicCard/BasicCard';
+
+    const getHeader = () => {
+        <>
+        Hello ?
+        </>
+        };
 
 function App() {
+  const getContent = () => (
+    <>
+  Yes or No
+
+    </>
+  );
 
 
   return (
@@ -24,7 +37,10 @@ function App() {
         >
           OpenQuizzApp
         </Typography>
-
+        <BasicCard
+          header={getHeader()}
+          content={getContent()}
+        />
       </Box>
 
     </Container>
