@@ -5,9 +5,12 @@ import { cardStyles } from './styles';
 
 const BasicCard = ({header,  content}) => {
     return (
-        <Card sx={cardStyles}>
+        <Card 
+        sx={cardStyles}
+        >
         {header}
-            <CardContent>
+            <CardContent
+            >
                 {content}
             </CardContent>
         </Card>

@@ -1,7 +1,7 @@
 export const cardStyles = {
     width: '1050px',
     position: 'absolute',
-    left: '50%',
+    left: '33%',
     margin: '20px',
     marginLeft: '160px',
     transform: 'translateX(-50%)',
