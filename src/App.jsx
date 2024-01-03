@@ -5,6 +5,7 @@ import Typography from '@mui/material/Typography';
 import BasicCard from './assets/Components/Common/BasicCard/BasicCard';
 import BasicQuestion from './assets/Components/Common/BasicQuestion/BasicQuestion';
 
+
 const getHeader = () => {
   <>
 
@@ -14,11 +15,18 @@ const getHeader = () => {
 function App() {
   const question = "Are you ready for the first question ?"
   const getContent = () => (
-    <>
+     <Box
+      sx={{
+        display: 'flex',
+        justifyContent: 'center', 
+        alignItems: 'center',
+        height: '100%',
+      }}
+    >
       <BasicQuestion
       question={question}
        />
-    </>
+    </Box>
   );
 
 
