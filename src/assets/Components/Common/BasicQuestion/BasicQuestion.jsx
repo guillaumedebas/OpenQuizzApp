@@ -4,7 +4,6 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 import PropTypes from 'prop-types';
-import BasicButton from '../BasicButton/BasicButton';
 
 
 
@@ -12,34 +11,38 @@ const BasicQuestion = ({ question }) => {
     return (
         <FormControl>
             <FormLabel
-                id="question-test"
-                sx={{ color: 'black' }}
+                id={`question-label-${question.questionId}`}
+                sx={{
+                     color: 'black',
+                     fontWeight: 'bold'
+                }}
             >
-                {question}
+                {question.questionText}
             </FormLabel>
             <RadioGroup
-                aria-labelledby="question-test"
-                defaultValue="yes"
-                name="radio-buttons-group"
-
+                aria-labelledby={`question-label-${question.questionId}`}
+                name={`question-${question.questionId}`}
             >
-                <FormControlLabel value="yes" control={<Radio />} label="Yes" />
-                <FormControlLabel value="no" control={<Radio />} label="No" />
+                {question.answers.map((item) => (
+                    <FormControlLabel
+                        key={item.answersId}
+                       value={`${item.label.toLowerCase().replace(/\s+/g, '').slice(0, 7)}${item.answersId}`}
+                        control={<Radio />}
+                        label={item.label} />
+                ))}
             </RadioGroup>
-            <BasicButton
-                variant="contained"
-                color="primary"
-                size="small"
-                sx={{
-                    ml: 'auto',
-                }}
-
-            >Valider</BasicButton>
         </FormControl>
     )
 }
 BasicQuestion.propTypes = {
-    question: PropTypes.string
-};
+    question: PropTypes.shape({
+        questionId: PropTypes.number.isRequired,
+        questionText: PropTypes.string.isRequired,
+        answers: PropTypes.arrayOf(PropTypes.shape({
+            answersId: PropTypes.number.isRequired,
+            label: PropTypes.string.isRequired
+        })).isRequired
+    }).isRequired
+}
 
 export default BasicQuestion

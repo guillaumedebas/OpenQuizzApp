@@ -3,7 +3,8 @@ import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import BasicCard from './assets/Components/Common/BasicCard/BasicCard';
-import BasicQuestion from './assets/Components/Common/BasicQuestion/BasicQuestion';
+import { questions } from './assets/Components/Common/BasicQuestion/const/questions';
+import BasicQuiz from './assets/Components/Common/BasicQuiz/BasicQuiz';
 
 
 const getHeader = () => {
@@ -13,19 +14,18 @@ const getHeader = () => {
 };
 
 function App() {
-  const question = "Are you ready for the first question ?"
   const getContent = () => (
-     <Box
+    <Box
       sx={{
         display: 'flex',
-        justifyContent: 'center', 
+        justifyContent: 'center',
         alignItems: 'center',
         height: '100%',
       }}
     >
-      <BasicQuestion
-      question={question}
-       />
+      <BasicQuiz
+        questions={questions}
+      />
     </Box>
   );
 
