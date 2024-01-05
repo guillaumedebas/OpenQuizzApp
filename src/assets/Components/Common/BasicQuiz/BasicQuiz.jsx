@@ -1,9 +1,14 @@
 import { Box } from '@mui/material'
 import BasicQuestion from '../BasicQuestion/BasicQuestion'
 import PropTypes from 'prop-types'
-import BasicButton from '../BasicButton/BasicButton'
+import BasicButton from '../BasicButton/BasicButton' 
 
 const BasicQuiz = ({ questions }) => {
+ const handleAnswerChange = (questionId, selectedAnswer) => {
+  console.log(questionId, selectedAnswer)
+  
+  };
+
   return (
     <Box sx={{ 
       display: 'flex', 
@@ -14,6 +19,7 @@ const BasicQuiz = ({ questions }) => {
         <BasicQuestion
           key={question.questionId}
           question={question}
+          handleAnswerChange={handleAnswerChange}
         />
       ))}
       <BasicButton
@@ -35,7 +41,8 @@ BasicQuiz.propTypes = {
         questionText: PropTypes.string.isRequired,
         answers: PropTypes.arrayOf(PropTypes.shape({
             answersId: PropTypes.number.isRequired,
-            label: PropTypes.string.isRequired
+            label: PropTypes.string.isRequired,
+            correct: PropTypes.bool.isRequired
         })).isRequired
     })).isRequired
 };
