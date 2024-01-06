@@ -13,15 +13,25 @@ const BasicQuiz = ({ questions }) => {
     updatedAnswers[questionId] = selectedAnswer
     setSelectedAnswers(updatedAnswers)
 
-  };
+  }
+  
   const checkAnswers = () => {
     for (const questionId in selectedAnswers) {
       if (Object.hasOwnProperty.call(selectedAnswers, questionId)) {
-        const selectedAnswer = selectedAnswers[questionId];
-        console.log(`Question ID: ${questionId}, Selected Answer: ${selectedAnswer}`);
+        const selectedAnswer = selectedAnswers[questionId]
+        const question = questions.find((q) => q.questionId === parseInt(questionId, 10))
+        if (question && question.answers) {
+          const correctAnswer = question.answers.find((a) => a.correct === true)
+          if (correctAnswer) {
+            const answerId = parseInt(selectedAnswer.replace("answer-", ""), 10)
+            const isCorrect = answerId === correctAnswer.answersId;
+             const resultMessage = isCorrect ? "Bonne réponse" : "Mauvaise réponse"
+            console.log(`Question ID: ${questionId}, Selected Answer: ${selectedAnswer}, ${resultMessage}`)
+          }
+        }
       }
     }
-  };
+  }
 
 
   return (

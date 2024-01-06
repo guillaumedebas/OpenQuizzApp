@@ -30,7 +30,7 @@ const BasicQuestion = ({ question, handleAnswerChange }) => {
                 {question.answers.map((item) => (
                     <FormControlLabel
                         key={item.answersId}
-                       value={`${item.label.toLowerCase().replace(/\s+/g, '').slice(0, 7)}${item.answersId}`}
+                       value={`answer-${item.answersId}`}
                         control={<Radio />}
                         label={item.label} />
                 ))}
