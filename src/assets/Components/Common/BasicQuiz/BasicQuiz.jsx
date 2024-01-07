@@ -1,4 +1,4 @@
-import { Box } from '@mui/material'
+import { Box, Typography } from '@mui/material'
 import BasicQuestion from '../BasicQuestion/BasicQuestion'
 import PropTypes from 'prop-types'
 import BasicButton from '../BasicButton/BasicButton'
@@ -7,6 +7,7 @@ import { useState } from 'react'
 
 const BasicQuiz = ({ questions }) => {
   const [selectedAnswers, setSelectedAnswers] = useState({})
+  const [answerResults, setAnswerResults] = useState({})
 
   const handleAnswerChange = (questionId, selectedAnswer) => {
     const updatedAnswers = { ...selectedAnswers }
@@ -14,38 +15,40 @@ const BasicQuiz = ({ questions }) => {
     setSelectedAnswers(updatedAnswers)
 
   }
-  
+
+
   const checkAnswers = () => {
+    const results = {};
     for (const questionId in selectedAnswers) {
       if (Object.hasOwnProperty.call(selectedAnswers, questionId)) {
-        const selectedAnswer = selectedAnswers[questionId]
-        const question = questions.find((q) => q.questionId === parseInt(questionId, 10))
-        if (question && question.answers) {
-          const correctAnswer = question.answers.find((a) => a.correct === true)
-          if (correctAnswer) {
-            const answerId = parseInt(selectedAnswer.replace("answer-", ""), 10)
-            const isCorrect = answerId === correctAnswer.answersId;
-             const resultMessage = isCorrect ? "Bonne réponse" : "Mauvaise réponse"
-            console.log(`Question ID: ${questionId}, Selected Answer: ${selectedAnswer}, ${resultMessage}`)
-          }
-        }
+        const selectedAnswer = selectedAnswers[questionId];
+        const answerId = parseInt(selectedAnswer.replace("answer-", ""), 10);
+        const isCorrect = questions[questionId].answers[answerId].correct;
+        results[questionId] = isCorrect;
       }
     }
-  }
+    setAnswerResults(results);
+  };
 
 
   return (
     <Box sx={{
       display: 'flex',
       flexDirection: 'column',
-      alignItems: 'center'
+    
     }}>
       {questions.map((question) => (
-        <BasicQuestion
-          key={question.questionId}
-          question={question}
-          handleAnswerChange={handleAnswerChange}
-        />
+        <Box key={question.questionId}>
+          <BasicQuestion
+            question={question}
+            handleAnswerChange={handleAnswerChange}
+          />
+          {answerResults[question.questionId] !== undefined && (
+            <Typography sx={{ color: answerResults[question.questionId] ? 'green' : 'red' }}>
+              {answerResults[question.questionId] ? 'Bonne réponse' : 'Mauvaise réponse'}
+            </Typography>
+          )}
+        </Box>
       ))}
       <BasicButton
         variant="contained"
