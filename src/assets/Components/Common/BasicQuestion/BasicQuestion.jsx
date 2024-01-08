@@ -45,7 +45,8 @@ BasicQuestion.propTypes = {
         answers: PropTypes.arrayOf(PropTypes.shape({
             answersId: PropTypes.number.isRequired,
             label: PropTypes.string.isRequired,
-            correct: PropTypes.bool.isRequired
+            correct: PropTypes.bool.isRequired,
+            explanation: PropTypes.string.isRequired
         })).isRequired
     }).isRequired,
     handleAnswerChange: PropTypes.func.isRequired

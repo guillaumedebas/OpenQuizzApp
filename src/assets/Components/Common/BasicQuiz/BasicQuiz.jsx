@@ -1,4 +1,5 @@
-import { Box, Typography } from '@mui/material'
+import { Box, Typography, List, ListItem } from '@mui/material'
+import Divider from '@mui/material/Divider';
 import BasicQuestion from '../BasicQuestion/BasicQuestion'
 import PropTypes from 'prop-types'
 import BasicButton from '../BasicButton/BasicButton'
@@ -43,11 +44,26 @@ const BasicQuiz = ({ questions }) => {
             question={question}
             handleAnswerChange={handleAnswerChange}
           />
-          {answerResults[question.questionId] !== undefined && (
-            <Typography sx={{ color: answerResults[question.questionId] ? 'green' : 'red' }}>
-              {answerResults[question.questionId] ? 'Bonne réponse' : 'Mauvaise réponse'}
-            </Typography>
+              {answerResults[question.questionId] !== undefined && (
+            <Box>
+              <Typography sx={{ color: answerResults[question.questionId] ? 'green' : 'red', mt: 1 }}>
+                {answerResults[question.questionId] ? 'Bonne réponse' : 'Mauvaise réponse'}
+              </Typography>
+              <List sx={{ pl: 2, mt: 1 }}>
+                {question.answers.map((answer) => (
+                  <ListItem key={answer.answersId}>
+                    <Typography 
+                      variant="body2"
+                      sx={{ color: answer.correct ? 'green' : 'red' }}
+                    >
+                      {answer.label} : {answer.explanation}
+                    </Typography>
+                  </ListItem>
+                ))}
+              </List>
+            </Box>
           )}
+          <Divider />
         </Box>
       ))}
       <BasicButton
@@ -71,7 +87,8 @@ BasicQuiz.propTypes = {
     answers: PropTypes.arrayOf(PropTypes.shape({
       answersId: PropTypes.number.isRequired,
       label: PropTypes.string.isRequired,
-      correct: PropTypes.bool.isRequired
+      correct: PropTypes.bool.isRequired,
+      explanation: PropTypes.string.isRequired
     })).isRequired
   })).isRequired
 };
