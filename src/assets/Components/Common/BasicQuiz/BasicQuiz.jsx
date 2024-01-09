@@ -9,11 +9,23 @@ import { useState } from 'react'
 const BasicQuiz = ({ questions }) => {
   const [selectedAnswers, setSelectedAnswers] = useState({})
   const [answerResults, setAnswerResults] = useState({})
+  const [isButtonDisabled, setIsButtonDisabled] = useState(true)
+
+const checkIfAllAnswered = (answers) => {
+  const allAnswered = questions.every(question => 
+    Object.prototype.hasOwnProperty.call(answers, question.questionId)
+  );
+  setIsButtonDisabled(!allAnswered);
+}
+
+
 
   const handleAnswerChange = (questionId, selectedAnswer) => {
     const updatedAnswers = { ...selectedAnswers }
     updatedAnswers[questionId] = selectedAnswer
     setSelectedAnswers(updatedAnswers)
+
+   checkIfAllAnswered(updatedAnswers)
 
   }
 
@@ -74,6 +86,7 @@ const BasicQuiz = ({ questions }) => {
           mt: 2,
         }}
         onClick={checkAnswers}
+        disabled={isButtonDisabled}
       >
         Valider
       </BasicButton>
