@@ -1,62 +1,49 @@
-import './App.css'
+import './App.css';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
+import Grid from '@mui/material/Grid';
 import BasicCard from './assets/Components/Common/BasicCard/BasicCard';
 import { questions } from './assets/Components/Common/BasicQuestion/const/questions';
 import BasicQuiz from './assets/Components/Common/BasicQuiz/BasicQuiz';
 
-
-const getHeader = () => {
-  <>
-
-  </>
-};
-
 function App() {
-  const getContent = () => (
-    <Box
-      sx={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        height: '100%',
-      }}
-    >
-      <BasicQuiz
-        questions={questions}
-      />
-    </Box>
+  const getHeader = () => (
+    <Typography variant="h2" align="center">
+      OpenQuizzApp
+    </Typography>
   );
 
+  const getContent = () => (
+    <BasicQuiz questions={questions} />
+  );
 
   return (
-    <Container maxWidth="false"
-      sx={{
-        padding: '0!important'
-      }}>
-      <Box
+    <Container maxWidth="false" sx={{ padding: '0!important', height: '100vh' }}>
+      <Grid container spacing={2} sx={{ height: '100%' }}>
+     
+        <Grid item xs={12}>
+          <Box sx={{  width: '100%' }}>
+            {getHeader()}
+          </Box>
+        </Grid>
 
-        sx={{
-          bgcolor: '#cfe8fc',
-          height: '100vh',
-          width: '100vw'
-        }}>
-        <Typography
-          variant="h1"
-          align="center"
-        >
-          OpenQuizzApp
-        </Typography>
-        <BasicCard
-          header={getHeader()}
-          content={getContent()}
+  
+        <Grid item xs={12} container justifyContent="center" alignItems="center">
+          <BasicCard content={getContent()} />
+        </Grid>
 
-        />
-      </Box>
-
+       
+        <Grid item xs={12}>
+          <Box sx={{  width: '100%', textAlign: 'center', padding: '10px' }}>
+            <Typography variant="subtitle1">
+              Réalisé par Guillaume Debas
+            </Typography>
+          </Box>
+        </Grid>
+      </Grid>
     </Container>
-  )
+  );
 }
 
-export default App
+export default App;
